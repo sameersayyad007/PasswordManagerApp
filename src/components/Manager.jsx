@@ -3,6 +3,9 @@
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState,useEffect, useRef } from "react"
 //import { faCopy } from '@fortawesome/react-fontawesome';
+import { ToastContainer, toast } from 'react-toastify';
+
+  import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -53,12 +56,38 @@ useEffect(() => {
 
 const copyText=(text) => {
   navigator.clipboard.writeText(text)
-  alert("text copied to clipboard!")
+  toast('🦄Text copied to clipboard!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    
+    });
 }
 
 
   return (
     <>
+<ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+
+/>
+{/* Same as */}
+<ToastContainer />
+
     <div className="absolute top-0 z-[-2] h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
 
 <div className="container mx-auto bg-slate-200  max-w-5xl p-10 py-10 my-8 rounded-md pt-5">
@@ -109,6 +138,7 @@ const copyText=(text) => {
         <th className="py-1.5 text-lg">URL</th>
         <th className="py-1.5 text-lg">Username</th>
         <th className="py-1.5 text-lg">Password</th>
+        <th className="py-1.5 text-lg">Actions</th>
        
       </tr>
     </thead> 
@@ -119,15 +149,26 @@ const copyText=(text) => {
                 return(
                     <>
                     <tr>
-        <td className="text-center w-12 py-1 text-lg"><a href={item.site} target="_blank">{item.site}</a>
+        <td className="text-center w-12 py-0.4 text-lg"><a href={item.site} target="_blank">{item.site}</a>
         <span onClick={()=>copyText(item.site)} className=" mx-1 my-2 right-0 cursor-pointer bg-slate-200  ml-5 py-0.4 px-1.5 text-sm hover:font-bold hover:bg-orange-200 rounded-md">copy</span></td>
-        <td className="text-center w-12 py-1 text-lg">{item.username}
+        <td className="text-center w-12 py-0.4 text-lg">{item.username}
         <span onClick={()=>copyText(item.username)} className=" mx-1 my-2 right-0 cursor-pointer  ml-2 bg-slate-200 py-0.4 px-1.5 text-sm hover:font-bold hover:bg-orange-200 rounded-md">copy</span>
         </td>
-        <td className="text-center w-12 py-1 text-lg">{item.password}
+        <td className="text-center w-12 py-0.4 text-lg">{item.password}
         <span onClick={()=>copyText(item.password)} className=" mx-1 my-2 right-0 cursor-pointer ml-2 bg-slate-200 py-0.4 px-1.5 text-sm hover:font-bold hover:bg-orange-200 rounded-md">copy</span>
         </td>
-        
+        <td className="justify-center text-center w-16 py-1 text-lg">
+        <span  ><lord-icon
+    src="https://cdn.lordicon.com/vhyuhmbl.json"
+    trigger="hover"
+    style={{width:"25px",height:"25px"}}>
+</lord-icon></span>
+        <span className="mx-2 my-2" ><lord-icon
+    src="https://cdn.lordicon.com/hjbrplwk.json"
+    trigger="hover"
+    style={{width:"25px",height:"25px"}}>
+</lord-icon></span>
+        </td>
       </tr>
                     </>
                 )

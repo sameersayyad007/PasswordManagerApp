@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 export default function Navbar() {
@@ -8,10 +9,10 @@ export default function Navbar() {
         </div>
       <ul>
         <li className="flex gap-4">
-            <a className="hover:font-bold" href="/">Home</a>
-            <a className="hover:font-bold" href="/">About</a>        
-            <a className="hover:font-bold" href="/">Services</a>
-            <a className="hover:font-bold" href="/">Contact us</a>
+            <Link className="hover:font-bold" to="/">Home</Link>
+            <Link className="hover:font-bold" to="/">About</Link>        
+            <Link className="hover:font-bold" to="/">Services</Link>
+            <Link className="hover:font-bold" to="/contactus">Contact us</Link>
         </li>
       </ul>
     </nav>
