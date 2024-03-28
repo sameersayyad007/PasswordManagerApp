@@ -4,7 +4,7 @@
 import { useState,useEffect, useRef } from "react"
 //import { faCopy } from '@fortawesome/react-fontawesome';
 import { ToastContainer, toast } from 'react-toastify';
-
+import { v4 as uuidv4 } from 'uuid';
   import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -30,11 +30,29 @@ const showPass = () => {
 
 const savePassword= () => {
     console.log("form",form)
-    setPasswordArray([...passwordArray,form])
-    localStorage.setItem("passwords", JSON.stringify([...passwordArray,form]))
+    setPasswordArray([...passwordArray,{...form,id:uuidv4()}])
+    localStorage.setItem("passwords", JSON.stringify([...passwordArray,{...form,id:uuidv4()}]))
     console.log("object",passwordArray)
     setForm({site:'',username:'',password:''})
 
+}
+const deletePassword= (id) => {
+  console.log("deleting data with id ",id)
+
+  let deleteArr= passwordArray.filter((item)=>{
+    item.id!==id
+    
+  })
+  setPasswordArray(deleteArr)
+  localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item=>item.id!==id)))
+
+ 
+
+}
+const editPassword= (id) => {
+  console.log("editing data with id ",id)
+ setForm(passwordArray.filter(item=>item.id===id)[0])
+setPasswordArray(passwordArray.filter(item=>item.id!==id))
 }
 
 const handleChange=(e) => {
@@ -158,12 +176,12 @@ theme="light"
         <span onClick={()=>copyText(item.password)} className=" mx-1 my-2 right-0 cursor-pointer ml-2 bg-slate-200 py-0.4 px-1.5 text-sm hover:font-bold hover:bg-orange-200 rounded-md">copy</span>
         </td>
         <td className="justify-center text-center w-16 py-1 text-lg">
-        <span  ><lord-icon
+        <span onClick={()=>editPassword(item.id)}  ><lord-icon
     src="https://cdn.lordicon.com/vhyuhmbl.json"
     trigger="hover"
     style={{width:"25px",height:"25px"}}>
 </lord-icon></span>
-        <span className="mx-2 my-2" ><lord-icon
+        <span className="mx-2 my-2" onClick={()=>deletePassword(item.id)} ><lord-icon
     src="https://cdn.lordicon.com/hjbrplwk.json"
     trigger="hover"
     style={{width:"25px",height:"25px"}}>
