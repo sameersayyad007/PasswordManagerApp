@@ -29,15 +29,24 @@ const showPass = () => {
 
 
 const savePassword= () => {
+  if(form.site.length>3 && form.username.length>3 && form.password.length>3){
     console.log("form",form)
     setPasswordArray([...passwordArray,{...form,id:uuidv4()}])
     localStorage.setItem("passwords", JSON.stringify([...passwordArray,{...form,id:uuidv4()}]))
     console.log("object",passwordArray)
     setForm({site:'',username:'',password:''})
+  }
+  else{
+    toast("please fill out all fields correctly!")
+  }
+   
 
 }
 const deletePassword= (id) => {
-  console.log("deleting data with id ",id)
+  
+  toast(' Record deleted successfully!');
+  if(confirm("Are you sure you want to delete this record?")){
+    console.log("deleting data with id ",id)
 
   let deleteArr= passwordArray.filter((item)=>{
     item.id!==id
@@ -45,6 +54,9 @@ const deletePassword= (id) => {
   })
   setPasswordArray(deleteArr)
   localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item=>item.id!==id)))
+ 
+
+  }
 
  
 
@@ -108,19 +120,19 @@ theme="light"
 
     <div className="absolute top-0 z-[-2] h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
 
-<div className="container mx-auto bg-slate-200  max-w-5xl p-10 py-10 my-8 rounded-md pt-5">
+<div className=" px-2  container mx-auto bg-slate-200  max-w-5xl p-10 py-10 my-8 rounded-md pt-5">
     <h1 className="text-3xl text-center font-mono font-bold"><span className="text-green-800">&lt; <span className="text-black">Password</span> Manager /&gt;</span>
 </h1>
     <p className="font-mono text-2xl text-center font-bold">~ Your personalised password manager tool ~</p>
 <div className="text-black flex flex-col p-4 gap-2 ">
-   <input value={form.site}  onChange={handleChange} type="text" name="site" id="" className="rounded-md border border-green-400 p-2"  placeholder="Enter webiste URL"/>
+   <input value={form.site}  onChange={handleChange} type="text" name="site" id="site" className="rounded-md border border-green-400 p-2"  placeholder="Enter webiste URL"/>
 
-   <div className="flex gap-3  justify-between w-full py-3  ">
-    <input type="text" value={form.username} onChange={handleChange} name="username" id="" className="rounded-md border border-green-400 p-2 w-1/2"  placeholder="Enter username"/>
+   <div className="flex gap-3 flex-col md:flex-row  justify-between w-full py-3  ">
+    <input type="text" value={form.username} onChange={handleChange} name="username" id="username" className="rounded-md border border-green-400 p-2 w-1/2"  placeholder="Enter username"/>
 
 
 <div className="relative flex flex-col w-1/2">
-<input value={form.password} ref={passwordRef} type="password" onChange={handleChange}  name="password" id="" className="rounded-md border border-green-400 p-2 w-full" placeholder="Enter password" />
+<input value={form.password} ref={passwordRef} type="password" onChange={handleChange}  name="password" id="password" className="rounded-md border border-green-400 p-2 w-full" placeholder="Enter password" />
 <span className="absolute mx-1 my-2 right-0 cursor-pointer bg-slate-200 py-0.4 px-1.5 hover:bg-orange-200 rounded-md" onClick={showPass}>{btnName}<script src="https://cdn.lordicon.com/lordicon.js"></script>
 <lord-icon
     src="https://cdn.lordicon.com/ccrgnftl.json"
